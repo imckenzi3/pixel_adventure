@@ -1,0 +1,66 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Level-01.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Level-01.tmx": {
+            "scale": 0.6040123456790124,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 218.5385794583546,
+                "y": 205.29381706693914
+            }
+        },
+        "Pixel Adventure background-1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Pixel Adventure tile set background-1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Pixel Adventure tile set.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "char_blue.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "idle.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Micester/Desktop/pixel_adventure/assets/images/character",
+    "map.height": 15,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 24,
+    "map.tileWidth": 24,
+    "map.width": 27,
+    "openFiles": [
+        "Pixel Adventure tile set.tsx",
+        "Level-01.tmx"
+    ],
+    "project": "Pixel Adventure.tiled-project",
+    "recentFiles": [
+        "Pixel Adventure tile set.tsx",
+        "Level-01.tmx",
+        "char_blue.tsx",
+        "idle.tsx",
+        "Pixel Adventure background-1.tsx",
+        "Pixel Adventure tile set background-1.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 5,
+    "tileset.spacing": 5,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
