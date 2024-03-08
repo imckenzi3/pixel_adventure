@@ -11,9 +11,13 @@ bool checkCollision(player, block) {
   final blockWidth = block.width;
   final blockHeight = block.height;
 
+  // fix y based on left or right
+  // check if scale is less than 0 = going left
+  final fixedX = player.scale.x < 0 ? playerX - playerWidth : playerX;
+
   // return if colliding
   return (playerY < blockY + blockHeight &&
       playerY + playerHeight > blockY &&
       playerX < blockX + blockWidth &&
-      playerX + playerWidth > blockX);
+      fixedX + playerWidth > blockX);
 }
