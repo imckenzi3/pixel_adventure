@@ -21,20 +21,33 @@ class Level extends World {
     //grab spawn layer
     final spawnPointsLayer = level.tileMap.getLayer<ObjectGroup>('Spawnpoints');
 
-    // //checks for spawn points
-    for (final spawnPoint in spawnPointsLayer!.objects) {
-      switch (spawnPoint.class_) {
-        case 'Player':
-          // final player = Player(
-          //     character: 'character',
-          //     position: Vector2(spawnPoint.x, spawnPoint.y));
-          player.position = Vector2(spawnPoint.x, spawnPoint.y);
-          add(player);
-          break;
-        default:
+    if (spawnPointsLayer != null) {
+      // checks for spawn points
+      for (final spawnPoint in spawnPointsLayer.objects) {
+        switch (spawnPoint.class_) {
+          case 'Player':
+            // final player = Player(
+            //     character: 'character',
+            //     position: Vector2(spawnPoint.x, spawnPoint.y));
+            player.position = Vector2(spawnPoint.x, spawnPoint.y);
+            add(player);
+            break;
+          default:
+        }
       }
     }
+    final collisionsLayer = level.tileMap.getLayer<ObjectGroup>('Collisions');
 
+    if(collisionsLayer != null){
+      for(final collision in collisionsLayer.objects){
+        switch (collision.class_) {
+          case 'Platform':
+            final platform = 
+            break;
+          default:
+        }
+      }
+    }
     //add player to game
     // add(Player());
 
