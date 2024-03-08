@@ -58,6 +58,10 @@ class Player extends SpriteAnimationGroupComponent
 
     // method for playermovement
     _updatePlayerMovement(dt);
+
+    // horizontalCollisionCheck
+    _checkHorizontalCollisions();
+
     super.update(dt);
   }
 
@@ -133,5 +137,13 @@ class Player extends SpriteAnimationGroupComponent
   void _updatePlayerMovement(double dt) {
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
+  }
+
+// horizontalCollisionCheck
+  void _checkHorizontalCollisions() {
+    // loop through collision box
+    for (final block in collisionBlocks) {
+      // handle collision
+    }
   }
 }
