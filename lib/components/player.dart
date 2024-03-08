@@ -9,7 +9,7 @@ import 'package:pixel_adventure/components/utils.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
 // player state - allows us to give different states that we can call later
-enum PlayerState { idle, running }
+enum PlayerState { idle, running, jumping, falling }
 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<PixelAdventure>, KeyboardHandler {
@@ -17,10 +17,11 @@ class Player extends SpriteAnimationGroupComponent
   // if no character set default to character
   Player({position, this.character = 'character'}) : super(position: position);
 
+  final double stepTime = 0.1;
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
-
-  final double stepTime = 0.1;
+  late final SpriteAnimation jumpingAnimation;
+  late final SpriteAnimation fallingAnimation;
 
   // move player
   // horizontalMovement will check for left and right
@@ -108,10 +109,18 @@ class Player extends SpriteAnimationGroupComponent
     // running animation
     runningAnimation = _spriteAnimation('running', 8);
 
+    // jumping animation
+    jumpingAnimation = _spriteAnimation('jump', 8);
+
+    // falling animation
+    fallingAnimation = _spriteAnimation('fall', 8);
+
     // different animations linked to enum (list of all animations)
     animations = {
       PlayerState.idle: idleAnimation,
-      PlayerState.running: runningAnimation
+      PlayerState.running: runningAnimation,
+      PlayerState.jumping: jumpingAnimation,
+      PlayerState.falling: fallingAnimation
     };
 
     // set current animation
@@ -141,6 +150,12 @@ class Player extends SpriteAnimationGroupComponent
 
     // Check if moving, set running
     if (velocity.x > 0 || velocity.x < 0) playerstate = PlayerState.running;
+
+    // Check if falling set to falling
+    if (velocity.y > 0) playerstate = PlayerState.falling;
+
+    // Check if jumping set to jumping
+    if (velocity.y < 0) playerstate = PlayerState.jumping;
 
     current = playerstate;
   }
