@@ -35,6 +35,9 @@ class Player extends SpriteAnimationGroupComponent
 
   bool isOnGround = false;
 
+  // jumping
+  bool hasJumped = false;
+
   List<CollisionBlock> collisionBlocks = [];
   // make player move
   // best way: make var = velocity, change velocty and set to player position
@@ -91,6 +94,9 @@ class Player extends SpriteAnimationGroupComponent
     horizontalMovement += isLeftKeyPressed ? -1 : 0;
     horizontalMovement += isRightKeyPressed ? 1 : 0;
 
+    // jump - if played pressed space, hasJumped = true
+    hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
+
     return super.onKeyEvent(event, keysPressed);
   }
 
@@ -141,8 +147,20 @@ class Player extends SpriteAnimationGroupComponent
 
 // method for playermovement
   void _updatePlayerMovement(double dt) {
+    // jump
+    if (hasJumped && isOnGround) {
+      _playerJump(dt);
+    }
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
+  }
+
+  // jump
+  void _playerJump(double dt) {
+    velocity.y = -_jumpForce;
+    position.y += velocity.y * dt;
+    isOnGround = false;
+    hasJumped = false;
   }
 
 // horizontalCollisionCheck
@@ -170,14 +188,14 @@ class Player extends SpriteAnimationGroupComponent
     }
   }
 
-  //gravity
+//gravity
   void _applyGravty(double dt) {
     velocity.y += _gravity;
     velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
     position.y += velocity.y * dt;
   }
 
-  // vert collisions
+// vert collisions
   void _checkVerticalCollisions() {
     for (final block in collisionBlocks) {
       if (block.isPlatform) {
