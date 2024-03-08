@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:pixel_adventure/components/collision_block.dart';
 // import 'package:flutter/src/services/hardware_keyboard.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
@@ -35,6 +36,7 @@ class Player extends SpriteAnimationGroupComponent
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
 
+  List<CollisionBlock> collisionBlocks = [];
   // make player move
   // best way: make var = velocity, change velocty and set to player position
 
@@ -42,6 +44,9 @@ class Player extends SpriteAnimationGroupComponent
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
+
+    // player collisions
+    debugMode = true;
     return super.onLoad();
   }
 
