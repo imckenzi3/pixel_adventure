@@ -7,7 +7,7 @@ bool checkCollision(player, block) {
 
   // grab ref from object (x,y,width,heigth)
   final blockX = block.x;
-  final blockY = block.x;
+  final blockY = block.y;
   final blockWidth = block.width;
   final blockHeight = block.height;
 
@@ -18,6 +18,6 @@ bool checkCollision(player, block) {
   // return if colliding
   return (playerY < blockY + blockHeight &&
       playerY + playerHeight > blockY &&
-      playerX < blockX + blockWidth &&
+      fixedX < blockX + blockWidth &&
       fixedX + playerWidth > blockX);
 }

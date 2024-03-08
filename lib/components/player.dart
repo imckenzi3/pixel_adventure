@@ -37,6 +37,11 @@ class Player extends SpriteAnimationGroupComponent
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
 
+  // gravity
+  final double _gravity = 9.8;
+  final double _jumpForce = 450;
+  final double _terminalVelocity = 300;
+
   List<CollisionBlock> collisionBlocks = [];
   // make player move
   // best way: make var = velocity, change velocty and set to player position
@@ -62,6 +67,10 @@ class Player extends SpriteAnimationGroupComponent
 
     // horizontalCollisionCheck
     _checkHorizontalCollisions();
+
+    // gravity
+    // check collisions first before gravity
+    _applyGravty(dt);
 
     super.update(dt);
   }
@@ -161,5 +170,12 @@ class Player extends SpriteAnimationGroupComponent
         }
       }
     }
+  }
+
+  // gravity
+  void _applyGravty(double dt) {
+    velocity.y += _gravity;
+    velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
+    position.y += velocity.y * dt;
   }
 }
