@@ -11,12 +11,6 @@ import 'package:pixel_adventure/pixel_adventure.dart';
 // player state - allows us to give different states that we can call later
 enum PlayerState { idle, running }
 
-// // keeps track of player direction
-// enum PlayerDirection { left, right, none }
-
-// check if player facing right
-// bool isFacingRight = true;
-
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<PixelAdventure>, KeyboardHandler {
   String character;
@@ -28,9 +22,6 @@ class Player extends SpriteAnimationGroupComponent
 
   final double stepTime = 0.1;
 
-  // ref to PlayerState enum
-  // PlayerDirection playerDirection = PlayerDirection.none;
-
   // move player
   // horizontalMovement will check for left and right
   double horizontalMovement = 0;
@@ -41,6 +32,8 @@ class Player extends SpriteAnimationGroupComponent
   final double _gravity = 9.8;
   final double _jumpForce = 450;
   final double _terminalVelocity = 300;
+
+  bool isOnGround = false;
 
   List<CollisionBlock> collisionBlocks = [];
   // make player move
@@ -71,6 +64,9 @@ class Player extends SpriteAnimationGroupComponent
     // gravity
     // check collisions first before gravity
     _applyGravty(dt);
+
+    // check vert collisions
+    _checkVerticalCollisions();
 
     super.update(dt);
   }
@@ -162,20 +158,45 @@ class Player extends SpriteAnimationGroupComponent
             velocity.x = 0;
             // stop velocty change position on x
             position.x = block.x - width;
+            break;
           }
           if (velocity.x < 0) {
             velocity.x = 0;
             position.x = block.x + block.width + width;
+            break;
           }
         }
       }
     }
   }
 
-  // gravity
+  //gravity
   void _applyGravty(double dt) {
     velocity.y += _gravity;
     velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
     position.y += velocity.y * dt;
+  }
+
+  // vert collisions
+  void _checkVerticalCollisions() {
+    for (final block in collisionBlocks) {
+      if (block.isPlatform) {
+        // handle platform
+      } else {
+        // check collision to see if colliding with block
+        if (checkCollision(this, block)) {
+          if (velocity.y > 0) {
+            velocity.y = 0;
+            position.y = block.y - width;
+            isOnGround = true;
+            break;
+          }
+          if (velocity.y < 0) {
+            velocity.y = 0;
+            position.y = block.y + block.height;
+          }
+        }
+      }
+    }
   }
 }
