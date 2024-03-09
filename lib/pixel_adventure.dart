@@ -8,8 +8,9 @@ import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
 
+// needs to have HasCollisionDetection so stuff we need to collide can have collisionsCallbacks
 class PixelAdventure extends FlameGame
-    with HasKeyboardHandlerComponents, DragCallbacks {
+    with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection {
   late final CameraComponent cam;
   Player player = Player(character: 'character');
 

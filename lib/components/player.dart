@@ -4,8 +4,9 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:pixel_adventure/components/coin.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
-import 'package:pixel_adventure/components/player_hitbox.dart';
+import 'package:pixel_adventure/components/custom_hitbox.dart';
 import 'package:pixel_adventure/components/utils.dart';
 // import 'package:flutter/src/services/hardware_keyboard.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
@@ -14,7 +15,7 @@ import 'package:pixel_adventure/pixel_adventure.dart';
 enum PlayerState { idle, running, jumping, falling }
 
 class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<PixelAdventure>, KeyboardHandler {
+    with HasGameRef<PixelAdventure>, KeyboardHandler, CollisionCallbacks {
   String character;
   // if no character set default to character
   Player({position, this.character = 'character'}) : super(position: position);
@@ -44,8 +45,8 @@ class Player extends SpriteAnimationGroupComponent
   List<CollisionBlock> collisionBlocks = [];
 
   // player hitbox
-  PlayerHitbox hitbox =
-      PlayerHitbox(offsetX: 20, offsetY: 12, width: 20, height: 35);
+  CustomHitbox hitbox =
+      CustomHitbox(offsetX: 20, offsetY: 12, width: 20, height: 35);
 
   // make player move
   // best way: make var = velocity, change velocty and set to player position
@@ -112,6 +113,14 @@ class Player extends SpriteAnimationGroupComponent
     hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
 
     return super.onKeyEvent(event, keysPressed);
+  }
+
+  // collision
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    // if collide with coin
+    if (other is Coin) other.collidedWithPlayer();
+    super.onCollision(intersectionPoints, other);
   }
 
   // animations
