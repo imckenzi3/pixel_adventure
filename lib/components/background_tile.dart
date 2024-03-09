@@ -3,23 +3,9 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/parallax.dart';
-import 'package:pixel_adventure/components/configuration.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
 class BackgroundTile extends ParallaxComponent<PixelAdventure> {
-  // final String color;
-  // BackgroundTile({
-  //   this.color = '/backgroundbackground_layer_1',
-  //   position,
-  // }) : super(position: position);
-
-  // @override
-  // FutureOr<void> onLoad() {
-  //   size = Vector2.all(320);
-  //   sprite = Sprite(game.images.fromCache('/backgroundbackground_layer_1'));
-  //   return super.onLoad();
-  // }
-
   BackgroundTile();
 
   @override
@@ -31,15 +17,14 @@ class BackgroundTile extends ParallaxComponent<PixelAdventure> {
     await Flame.images.load('background/background_layer_2.png');
     await Flame.images.load('background/background_layer_3.png');
 
-    // size = gameRef.size;
     parallax = Parallax([
       ParallaxLayer(
         ParallaxImage(background),
       ),
     ]);
-    // sprite = Sprite(background);
   }
 
+  // makes background move
   // @override
   // void update(double dt) {
   //   super.update(dt);
