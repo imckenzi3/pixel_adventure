@@ -63,12 +63,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/tiles/
+    - assets/images/background/
     - assets/images/oak_woods_tileset.png
     - assets/images/character/idle.png
     - assets/images/character/running.png
     - assets/images/character/jump.png
     - assets/images/character/fall.png
-
     - assets/images/HUD/Joystick.png
     - assets/images/HUD/Knob.png
 

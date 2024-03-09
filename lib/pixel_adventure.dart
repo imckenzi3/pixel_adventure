@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/painting.dart';
+import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
 
@@ -32,11 +33,11 @@ class PixelAdventure extends FlameGame
 
     // creates cam component w/ fix resolution
     cam = CameraComponent.withFixedResolution(
-        world: world, width: 820, height: 360);
+        world: world, width: 640, height: 360);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     // load cam first then world
-    addAll([cam, world]);
+    addAll([cam, world, BackgroundTile()]);
 
     if (showJoystick) {
       // joystick

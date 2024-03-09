@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/player.dart';
+import 'package:pixel_adventure/pixel_adventure.dart';
 
-class Level extends World {
+class Level extends World with HasGameRef<PixelAdventure> {
   final String levelName;
   final Player player;
 
@@ -15,13 +18,53 @@ class Level extends World {
   // Collisions
   List<CollisionBlock> collisionBlocks = [];
 
+  // background
+
   @override
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load('level-01.tmx', Vector2.all(24));
 
-    //add level to game
+    // add level to game
     add(level);
 
+    // background
+    // _scrollingBackground();
+    add(BackgroundTile());
+
+    // spawning objects
+    _spawningObjects();
+
+    // add object collisions
+    _addCollisions();
+
+    return super.onLoad();
+  }
+
+  // background
+  // void _scrollingBackground() {
+  //   // get access to background layers
+  //   final backgroundLayer = level.tileMap.getLayer('Background');
+
+  //   const tileSize = 32;
+  //   final numtilesY = (game.size.x / tileSize).floor();
+
+  //   if (backgroundLayer != null) {
+  //     final backgroundColor =
+  //         backgroundLayer.properties.getValue('BackgroundColor');
+
+  //     for (double y = 0; y < numtilesY; y++) {
+  //       final backgroundTile = BackgroundTile(
+  //         color: backgroundColor ?? 'background_layer_1',
+  //         position: Vector2(0, y * tileSize),
+  //       );
+
+  //       add(backgroundTile);
+  //     }
+  //   }
+  // }
+
+  // spawning objects
+  void _spawningObjects() {
     //grab spawn layer
     final spawnPointsLayer = level.tileMap.getLayer<ObjectGroup>('Spawnpoints');
 
@@ -30,9 +73,6 @@ class Level extends World {
       for (final spawnPoint in spawnPointsLayer.objects) {
         switch (spawnPoint.class_) {
           case 'Player':
-            // final player = Player(
-            //     character: 'character',
-            //     position: Vector2(spawnPoint.x, spawnPoint.y));
             player.position = Vector2(spawnPoint.x, spawnPoint.y);
             add(player);
             break;
@@ -40,7 +80,10 @@ class Level extends World {
         }
       }
     }
+  }
 
+  // add object collisions
+  void _addCollisions() {
     // Collision
     final collisionsLayer = level.tileMap.getLayer<ObjectGroup>('Collisions');
 
@@ -71,10 +114,5 @@ class Level extends World {
     }
 
     player.collisionBlocks = collisionBlocks;
-
-    //add player to game
-    // add(Player());
-
-    return super.onLoad();
   }
 }
