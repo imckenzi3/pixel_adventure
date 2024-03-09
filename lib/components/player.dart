@@ -45,7 +45,7 @@ class Player extends SpriteAnimationGroupComponent
 
   // player hitbox
   PlayerHitbox hitbox =
-      PlayerHitbox(offsetX: 20, offsetY: 12, width: 20, height: 43);
+      PlayerHitbox(offsetX: 20, offsetY: 12, width: 20, height: 35);
 
   // make player move
   // best way: make var = velocity, change velocty and set to player position

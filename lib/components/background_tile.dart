@@ -25,9 +25,12 @@ class BackgroundTile extends ParallaxComponent<PixelAdventure> {
   @override
   Future<FutureOr<void>> onLoad() async {
     final background =
+
+        //parallax background images goes here
         await Flame.images.load('background/background_layer_1.png');
     await Flame.images.load('background/background_layer_2.png');
     await Flame.images.load('background/background_layer_3.png');
+
     // size = gameRef.size;
     parallax = Parallax([
       ParallaxLayer(
