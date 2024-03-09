@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
@@ -18,8 +17,6 @@ class Level extends World with HasGameRef<PixelAdventure> {
   // Collisions
   List<CollisionBlock> collisionBlocks = [];
 
-  // background
-
   @override
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load('level-01.tmx', Vector2.all(24));
@@ -29,7 +26,7 @@ class Level extends World with HasGameRef<PixelAdventure> {
 
     // background
     // _scrollingBackground();
-    add(BackgroundTile());
+    // add(BackgroundTile());
 
     // spawning objects
     _spawningObjects();

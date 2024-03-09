@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="27" height="15" tilewidth="24" tileheight="24" infinite="0" nextlayerid="5" nextobjectid="64">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="27" height="15" tilewidth="24" tileheight="24" infinite="0" nextlayerid="5" nextobjectid="91">
  <tileset firstgid="1" source="Pixel Adventure tile set.tsx"/>
  <tileset firstgid="316" name="background_layer_1" tilewidth="24" tileheight="24" spacing="5" margin="5" tilecount="66" columns="11">
   <image source="../images/background/background_layer_1.png" width="320" height="180"/>
@@ -12,33 +12,45 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,316,317,318,319,320,321,322,323,324,325,326,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,327,328,329,330,331,332,333,334,335,336,337,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,338,339,340,341,342,343,344,345,346,347,348,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,349,350,351,352,353,354,355,356,357,358,359,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,360,361,362,363,364,365,106,107,9,369,370,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,1,2,3,2,3,7,127,23,23,3,4,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,22,23,23,23,23,23,23,23,23,23,25,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,43,23,23,23,23,23,23,23,23,23,46,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,64,65,66,65,66,65,66,65,66,65,67,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,
+0,0,0,0,3,3,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,3,
+0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,3,0,0,0,
+0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,
+0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,
+0,1,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+1,23,23,23,3,8,2,7,8,7,8,2,3,7,8,7,8,2,3,2,3,2,2,7,8,3,4,
+64,65,65,65,66,66,66,66,65,65,66,65,66,65,66,65,66,65,66,66,66,66,66,66,66,66,67
 </data>
  </layer>
  <objectgroup id="4" name="Collisions">
-  <object id="50" x="192" y="264" width="264" height="96"/>
   <object id="51" x="768" y="336"/>
-  <object id="54" x="192" y="144" height="120"/>
-  <object id="55" x="456" y="144" height="120"/>
-  <object id="56" x="192" y="144" width="264"/>
-  <object id="60" x="384" y="240">
-   <polyline points="0,0 0,24 -24,24 0,0 -48,24 -24,24"/>
-  </object>
-  <object id="62" x="384" y="240" width="24"/>
-  <object id="63" x="408" y="240" height="24"/>
+  <object id="64" x="0" y="312" width="648" height="48"/>
+  <object id="65" x="0" y="0" height="312"/>
+  <object id="66" x="648" y="0" height="312"/>
+  <object id="71" type="Platform" x="48" y="168" width="24" height="24"/>
+  <object id="72" type="Platform" x="96" y="144" width="48" height="24"/>
+  <object id="73" type="Platform" x="168" y="120" width="24" height="24"/>
+  <object id="74" type="Platform" x="216" y="96" width="48" height="24"/>
+  <object id="75" type="Platform" x="288" y="72" width="72" height="24"/>
+  <object id="76" type="Platform" x="408" y="96" width="72" height="24"/>
+  <object id="77" type="Platform" x="504" y="120" width="72" height="24"/>
+  <object id="78" type="Platform" x="624" y="144" width="24" height="24"/>
+  <object id="79" type="Platform" x="600" y="168" width="24" height="24"/>
+  <object id="80" type="Platform" x="552" y="192" width="24" height="24"/>
+  <object id="81" type="Platform" x="528" y="264" width="48" height="24"/>
+  <object id="82" type="Platform" x="456" y="216" width="48" height="24"/>
+  <object id="83" type="Platform" x="336" y="192" width="72" height="24"/>
+  <object id="84" type="Platform" x="288" y="144" width="24" height="24"/>
+  <object id="85" type="Platform" x="264" y="120" width="24" height="24"/>
+  <object id="86" type="Platform" x="216" y="216" width="72" height="24"/>
+  <object id="88" type="Platform" x="144" y="240" width="24" height="24"/>
+  <object id="90" x="24" y="288" width="72" height="24"/>
  </objectgroup>
  <objectgroup id="3" name="Spawnpoints">
-  <object id="3" name="Player" type="Player" x="240" y="192" width="23.1783" height="46.3567"/>
+  <object id="3" name="Player" type="Player" x="48" y="240" width="23.1783" height="46.3567"/>
  </objectgroup>
 </map>

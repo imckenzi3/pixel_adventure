@@ -26,18 +26,20 @@ class BackgroundTile extends ParallaxComponent<PixelAdventure> {
   Future<FutureOr<void>> onLoad() async {
     final background =
         await Flame.images.load('background/background_layer_1.png');
+    await Flame.images.load('background/background_layer_2.png');
+    await Flame.images.load('background/background_layer_3.png');
     // size = gameRef.size;
     parallax = Parallax([
       ParallaxLayer(
-        ParallaxImage(background, fill: LayerFill.none),
+        ParallaxImage(background),
       ),
     ]);
-    //   sprite = Sprite(background);
+    // sprite = Sprite(background);
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-    parallax?.baseVelocity.x = Config.gameSpeed;
-  }
+  // @override
+  // void update(double dt) {
+  //   super.update(dt);
+  //   parallax?.baseVelocity.x = Config.gameSpeed;
+  // }
 }

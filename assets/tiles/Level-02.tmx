@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="background_layer_1" tilewidth="32" tileheight="32" spacing="5" margin="5" tilecount="32" columns="8">
+  <image source="../images/background/background_layer_1.png" width="320" height="180"/>
+ </tileset>
+</map>
