@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:pixel_adventure/components/coin.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
@@ -64,10 +65,19 @@ class Level extends World with HasGameRef<PixelAdventure> {
       // checks for spawn points
       for (final spawnPoint in spawnPointsLayer.objects) {
         switch (spawnPoint.class_) {
+          //spawn player
           case 'Player':
             player.position = Vector2(spawnPoint.x, spawnPoint.y);
             add(player);
             break;
+          //spawn coins
+          case 'Coin':
+            final coin = Coin(
+              coin: spawnPoint.name,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+            add(coin);
           default:
         }
       }

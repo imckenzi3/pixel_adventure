@@ -71,7 +71,8 @@ flutter:
     - assets/images/character/fall.png
     - assets/images/HUD/Joystick.png
     - assets/images/HUD/Knob.png
-
+    - assets/images/Common Pick-ups/
+    
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
