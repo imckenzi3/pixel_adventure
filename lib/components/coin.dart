@@ -42,7 +42,7 @@ class Coin extends SpriteAnimationComponent
 
     // animate coins
     animation = SpriteAnimation.fromFrameData(
-        game.images.fromCache('Common Pick-ups/$Coin (16 x 16).png'),
+        game.images.fromCache('Common Pick-ups/$coin.png'),
         SpriteAnimationData.sequenced(
             amount: 4, stepTime: stepTime, textureSize: Vector2.all(16)));
     return super.onLoad();
