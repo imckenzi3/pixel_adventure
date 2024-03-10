@@ -310,7 +310,7 @@ class Player extends SpriteAnimationGroupComponent
     current = PlayerState.hit;
 
     // appearing
-    const apperaingDuration = Duration(milliseconds: 350);
+    const appearingDuration = Duration(milliseconds: 350);
 
     // move duration
     const canMoveDuration = Duration(milliseconds: 400);
@@ -324,8 +324,10 @@ class Player extends SpriteAnimationGroupComponent
       position = startingPosition;
 
       // animation
+      // animation plays a bit off need to find a way to off set it to normal
       current = PlayerState.appearing;
-      Future.delayed(apperaingDuration, () {
+
+      Future.delayed(appearingDuration, () {
         velocity = Vector2.zero();
         position = startingPosition;
         _updatePlayerState();
