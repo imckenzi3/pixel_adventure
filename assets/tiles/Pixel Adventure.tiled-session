@@ -15,14 +15,28 @@
             "scaleInDock": 1
         },
         "Level-01.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 334.3333333333333,
-                "y": 180.66666666666669
+                "x": 333,
+                "y": 178
             }
         },
         "Level-01.tmx#background_layer_1": {
+            "scaleInDock": 1
+        },
+        "Level-02.tmx": {
+            "scale": 1.672890625,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 320.10460934946065,
+                "y": 192.4812030075188
+            }
+        },
+        "Level-02.tmx#background_layer_1": {
             "scaleInDock": 1
         },
         "Pixel Adventure background-1.tsx": {
@@ -62,6 +76,7 @@
     "recentFiles": [
         "Pixel Adventure tile set.tsx",
         "Level-01.tmx",
+        "Level-02.tmx",
         "char_blue.tsx",
         "idle.tsx",
         "Pixel Adventure background-1.tsx",
