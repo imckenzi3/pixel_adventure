@@ -73,6 +73,7 @@ flutter:
     - assets/images/HUD/Knob.png
     - assets/images/Common Pick-ups/
     - assets/images/Effects/Cloud_Poof (16 x 16).png
+    - assets/images/fire/
     
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
