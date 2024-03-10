@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
@@ -32,6 +33,10 @@ class Saw extends SpriteAnimationComponent with HasGameRef<PixelAdventure> {
   // pass animation
   @override
   FutureOr<void> onLoad() {
+    // collision
+    add(CircleHitbox());
+    debugMode = true;
+
     // get access to where saws can move to
     // check to see if vertical
     if (isVertical) {

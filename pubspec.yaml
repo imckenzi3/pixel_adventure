@@ -69,10 +69,12 @@ flutter:
     - assets/images/character/running.png
     - assets/images/character/jump.png
     - assets/images/character/fall.png
+    - assets/images/character/hit.png
     - assets/images/HUD/Joystick.png
     - assets/images/HUD/Knob.png
     - assets/images/Common Pick-ups/
     - assets/images/Effects/Cloud_Poof (16 x 16).png
+    - assets/images/Effects/appearing.png
     - assets/images/Spike/
     - assets/images/Saw/
 
