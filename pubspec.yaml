@@ -70,6 +70,7 @@ flutter:
     - assets/images/character/jump.png
     - assets/images/character/fall.png
     - assets/images/character/hit.png
+    - assets/images/character/death.png
     - assets/images/HUD/Joystick.png
     - assets/images/HUD/Knob.png
     - assets/images/Common Pick-ups/
@@ -77,7 +78,6 @@ flutter:
     - assets/images/Effects/appearing.png
     - assets/images/Spike/
     - assets/images/Saw/
-
     
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

@@ -13,7 +13,7 @@ import 'package:pixel_adventure/components/utils.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
 // player state - allows us to give different states that we can call later
-enum PlayerState { idle, running, jumping, falling, hit, appearing }
+enum PlayerState { idle, running, jumping, falling, hit, appearing, death }
 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<PixelAdventure>, KeyboardHandler, CollisionCallbacks {
@@ -28,6 +28,7 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation fallingAnimation;
   late final SpriteAnimation hitAnimation;
   late final SpriteAnimation appearingAnimation;
+  late final SpriteAnimation deathAnimation;
 
   // move player
   // horizontalMovement will check for left and right
@@ -162,6 +163,9 @@ class Player extends SpriteAnimationGroupComponent
     // appearing animation
     appearingAnimation = _specialSpriteAnimation('appearing', 8);
 
+    // death animation
+    deathAnimation = _specialSpriteAnimationDeath('death', 8);
+
     // different animations linked to enum (list of all animations)
     animations = {
       PlayerState.idle: idleAnimation,
@@ -169,7 +173,8 @@ class Player extends SpriteAnimationGroupComponent
       PlayerState.jumping: jumpingAnimation,
       PlayerState.falling: fallingAnimation,
       PlayerState.hit: hitAnimation,
-      PlayerState.appearing: appearingAnimation
+      PlayerState.appearing: appearingAnimation,
+      PlayerState.death: deathAnimation
     };
 
     // set current animation
@@ -185,12 +190,21 @@ class Player extends SpriteAnimationGroupComponent
     );
   }
 
-  // appearing / dissappearing
+  // appearing / death
   SpriteAnimation _specialSpriteAnimation(String state, int amount) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache('Effects/$state.png'),
       SpriteAnimationData.sequenced(
           amount: amount, stepTime: stepTime, textureSize: Vector2.all(16)),
+    );
+  }
+
+  // death - do we need special?
+  SpriteAnimation _specialSpriteAnimationDeath(String state, int amount) {
+    return SpriteAnimation.fromFrameData(
+      game.images.fromCache('character/$state.png'),
+      SpriteAnimationData.sequenced(
+          amount: amount, stepTime: stepTime, textureSize: Vector2.all(56)),
     );
   }
 
@@ -303,17 +317,20 @@ class Player extends SpriteAnimationGroupComponent
   // respawn
   // got hit, play hit animation, appearing animation, move to starting pos, delay
   // let player move
-  void _respawn() {
-    const hitDuration = Duration(milliseconds: 350);
+  void _respawn() async {
+    const hitDuration = Duration(milliseconds: 500);
 
     gotHit = true;
     current = PlayerState.hit;
 
     // appearing
-    const appearingDuration = Duration(milliseconds: 350);
+    const appearingDuration = Duration(milliseconds: 700);
 
     // move duration
     const canMoveDuration = Duration(milliseconds: 400);
+
+    // position
+    // position = startingPosition - Vector2.all(40);
 
     // delay code
     Future.delayed(hitDuration, () {
@@ -321,7 +338,7 @@ class Player extends SpriteAnimationGroupComponent
 
       // always facing right
       scale.x = 1;
-      position = startingPosition;
+      position = startingPosition - Vector2.all(-20);
 
       // animation
       // animation plays a bit off need to find a way to off set it to normal
