@@ -64,6 +64,7 @@ class Coin extends SpriteAnimationComponent
         ),
       );
       _collected = true;
+      gameRef.player.score += 1;
     }
 
     Future.delayed(

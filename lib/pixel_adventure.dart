@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter/painting.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
@@ -19,6 +20,15 @@ class PixelAdventure extends FlameGame
 
   // checks for if on desktop dont need joystick if on desktop
   bool showJoystick = false;
+
+  // health bar
+  late TextComponent _playerHealth;
+
+  // score
+  late TextComponent _playerScore;
+
+  // Returns the size of the playable area of the game window.
+  Vector2 fixedResolution = Vector2(650, 360);
 
   @override
   FutureOr<void> onLoad() async {
@@ -45,6 +55,40 @@ class PixelAdventure extends FlameGame
       addJoystick();
     }
 
+    // score
+
+    // Create text component for player score.
+    _playerScore = TextComponent(
+      text: 'Score: 0',
+      position: Vector2(10, 10),
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontFamily: 'Sans',
+        ),
+      ),
+    );
+    add(_playerScore);
+
+    // health bar
+    // game start health 100%
+    _playerHealth = TextComponent(
+      text: 'Health: 100%',
+
+      // health bar location
+      position: Vector2(size.x - 100, 10),
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontFamily: 'Sans',
+        ),
+      ),
+    );
+    _playerHealth.anchor = Anchor.topRight;
+    add(_playerHealth);
+
     return super.onLoad();
   }
 
@@ -54,6 +98,13 @@ class PixelAdventure extends FlameGame
     if (showJoystick) {
       updateJoystick();
     }
+
+    // update score
+    _playerScore.text = 'Score: ${player.score}';
+
+    // update health
+    _playerHealth.text = 'Health: ${player.health}%';
+
     super.update(dt);
   }
 
@@ -97,5 +148,16 @@ class PixelAdventure extends FlameGame
         player.horizontalMovement = 0;
         break;
     }
+  }
+
+  // health bar
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    // draw rectangle
+    canvas.drawRect(
+      Rect.fromLTWH(size.x - 100, 10, player.health.toDouble(), 10),
+      Paint()..color = Colors.green,
+    );
   }
 }

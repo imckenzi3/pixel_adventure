@@ -1,4 +1,5 @@
 import 'dart:async';
+// import 'dart:html';
 // import 'dart:math';
 
 import 'package:flame/collisions.dart';
@@ -34,6 +35,12 @@ class Player extends SpriteAnimationGroupComponent
   // horizontalMovement will check for left and right
   double horizontalMovement = 0;
   double moveSpeed = 100;
+
+  // health
+  int health = 100;
+
+  // score
+  int score = 0;
 
   // starting position
   Vector2 startingPosition = Vector2.zero();
@@ -139,6 +146,13 @@ class Player extends SpriteAnimationGroupComponent
 
     // if collide with saw
     if (other is Saw) _respawn();
+
+    if (other is Saw) {
+      health -= 10;
+      if (health <= 0) {
+        health = 0;
+      }
+    }
 
     super.onCollision(intersectionPoints, other);
   }

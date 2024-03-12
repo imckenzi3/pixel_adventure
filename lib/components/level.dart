@@ -6,6 +6,7 @@ import 'package:pixel_adventure/components/Saw.dart';
 import 'package:pixel_adventure/components/coin.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/Spike.dart';
+// import 'package:pixel_adventure/components/configuration.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
