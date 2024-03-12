@@ -15,9 +15,6 @@ class Coin extends SpriteAnimationComponent
     size,
   }) : super(position: position, size: size, removeOnFinish: true);
 
-  // if collected - only want to run once
-  bool _collected = false;
-
   // anim time
   final double stepTime = 0.1;
 
@@ -49,29 +46,25 @@ class Coin extends SpriteAnimationComponent
   }
 
   // get rid of coin when player collides
-  void collidedWithPlayer() {
+  void collidedWithPlayer() async {
     // check if not collected
-    if (!_collected) {
-      animation = SpriteAnimation.fromFrameData(
-        game.images.fromCache('Effects/Cloud_Poof (16 x 16).png'),
-        SpriteAnimationData.sequenced(
-          amount: 8,
-          stepTime: stepTime,
-          textureSize: Vector2.all(16),
+    animation = SpriteAnimation.fromFrameData(
+      game.images.fromCache('Effects/Cloud_Poof (16 x 16).png'),
+      SpriteAnimationData.sequenced(
+        amount: 8,
+        stepTime: stepTime,
+        textureSize: Vector2.all(16),
 
-          // run animation once
-          loop: false,
-        ),
-      );
-      _collected = true;
-      gameRef.player.score += 1;
-    }
-
-    Future.delayed(
-      const Duration(milliseconds: 800),
-      () => removeFromParent(),
+        // run animation once
+        loop: false,
+      ),
     );
-    // removes coin
-    //removeFromParent();
+
+    // add to score
+    gameRef.player.score += 1;
+
+    await animationTicker?.completed;
+
+    removeFromParent();
   }
 }

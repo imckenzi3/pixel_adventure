@@ -20,6 +20,7 @@ enum PlayerState { idle, running, jumping, falling, hit, appearing, death }
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<PixelAdventure>, KeyboardHandler, CollisionCallbacks {
   String character;
+
   // if no character set default to character
   Player({position, this.character = 'character'}) : super(position: position);
 
@@ -50,7 +51,7 @@ class Player extends SpriteAnimationGroupComponent
 
   // gravity
   final double _gravity = 9.8;
-  final double _jumpForce = 450;
+  final double _jumpForce = 260;
   final double _terminalVelocity = 300;
 
   bool isOnGround = false;
@@ -68,6 +69,11 @@ class Player extends SpriteAnimationGroupComponent
   // player hitbox
   CustomHitbox hitbox =
       CustomHitbox(offsetX: 20, offsetY: 12, width: 20, height: 35);
+
+  // fixed delta time - for physics
+  // dont want player to be able to jump higher due to higher or lower frame rate
+  double fixDeltaTime = 1 / 60; // target 60 fps
+  double accumaltedTime = 0;
 
   // make player move
   // best way: make var = velocity, change velocty and set to player position
@@ -94,23 +100,30 @@ class Player extends SpriteAnimationGroupComponent
   // movement
   @override
   void update(double dt) {
-    // check to see not gotHit
-    if (!gotHit) {
-      // update player state
-      _updatePlayerState();
+    // add to delta time
+    accumaltedTime += dt;
 
-      // method for playermovement
-      _updatePlayerMovement(dt);
+    // check if delta time is greater or equal to fixDeltaTime
+    while (accumaltedTime >= fixDeltaTime) {
+      // check to see not gotHit
+      if (!gotHit) {
+        // update player state
+        _updatePlayerState();
 
-      // horizontalCollisionCheck
-      _checkHorizontalCollisions();
+        // method for playermovement
+        _updatePlayerMovement(fixDeltaTime);
 
-      // gravity
-      // check collisions first before gravity
-      _applyGravty(dt);
+        // horizontalCollisionCheck
+        _checkHorizontalCollisions();
 
-      // check vert collisions
-      _checkVerticalCollisions();
+        // gravity
+        // check collisions first before gravity
+        _applyGravty(fixDeltaTime);
+
+        // check vert collisions
+        _checkVerticalCollisions();
+      }
+      accumaltedTime -= fixDeltaTime;
     }
     super.update(dt);
   }
@@ -141,9 +154,12 @@ class Player extends SpriteAnimationGroupComponent
     return super.onKeyEvent(event, keysPressed);
   }
 
-  // collision
+  // // updated collision
+  // // right now checks over and over
+  // // onCollisionStart only triggers once
   @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
     // if collide with coin
     if (other is Coin) other.collidedWithPlayer();
 
@@ -158,9 +174,8 @@ class Player extends SpriteAnimationGroupComponent
       if (health <= 0) {
         health = 0;
       }
+      super.onCollisionStart(intersectionPoints, other);
     }
-
-    super.onCollision(intersectionPoints, other);
   }
 
   // animations
@@ -178,7 +193,7 @@ class Player extends SpriteAnimationGroupComponent
     fallingAnimation = _spriteAnimation('fall', 8);
 
     // hit animation
-    hitAnimation = _spriteAnimation('hit', 4);
+    hitAnimation = _spriteAnimation('hit', 4)..loop = false;
 
     // appearing animation
     appearingAnimation = _specialSpriteAnimation('appearing', 8);
@@ -215,7 +230,10 @@ class Player extends SpriteAnimationGroupComponent
     return SpriteAnimation.fromFrameData(
       game.images.fromCache('Effects/$state.png'),
       SpriteAnimationData.sequenced(
-          amount: amount, stepTime: stepTime, textureSize: Vector2.all(16)),
+          amount: amount,
+          stepTime: stepTime,
+          textureSize: Vector2.all(16),
+          loop: false),
     );
   }
 
@@ -337,45 +355,50 @@ class Player extends SpriteAnimationGroupComponent
   // respawn
   // got hit, play hit animation, appearing animation, move to starting pos, delay
   // let player move
+
   void _respawn() async {
-    const hitDuration = Duration(milliseconds: 500);
+    // move duration
+    const canMoveDuration = Duration(milliseconds: 400);
 
     gotHit = true;
     current = PlayerState.hit;
 
-    // appearing
-    const appearingDuration = Duration(milliseconds: 700);
+    // track for when animation ends
+    await animationTicker?.completed;
 
-    // move duration
-    const canMoveDuration = Duration(milliseconds: 400);
+    // once completed make sure we reset animation
+    animationTicker?.reset();
+
+    // always facing right
+    scale.x = 1;
+    position = startingPosition - Vector2.all(-20);
+
+    // animation
+    current = PlayerState.appearing;
+
+    await animationTicker?.completed;
+    animationTicker?.reset();
+
+    velocity = Vector2.zero();
+    position = startingPosition;
+
+    _updatePlayerState();
+
+    Future.delayed(canMoveDuration, () => gotHit = false);
+
+    // if player health is zero and respawn set to 100
+    if (gameRef.player.health <= 0) {
+      gameRef.player.health = 100;
+    }
 
     // position
     // position = startingPosition - Vector2.all(40);
 
-    // delay code
-    Future.delayed(hitDuration, () {
-      // hit player move to starting pos
+    // // delay code
+    // Future.delayed(hitDuration, () {
+    //   // hit player move to starting pos
 
-      // always facing right
-      scale.x = 1;
-      position = startingPosition - Vector2.all(-20);
-
-      // animation
-      current = PlayerState.appearing;
-
-      Future.delayed(appearingDuration, () {
-        velocity = Vector2.zero();
-        position = startingPosition;
-
-        _updatePlayerState();
-
-        Future.delayed(canMoveDuration, () => gotHit = false);
-
-        // if player health is zero and respawn set to 100
-        if (gameRef.player.health <= 0) {
-          gameRef.player.health = 100;
-        }
-      });
-    });
+    //   Future.delayed(appearingDuration, () {});
+    // });
   }
 }

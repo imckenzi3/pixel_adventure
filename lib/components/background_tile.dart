@@ -7,11 +7,34 @@ import 'package:pixel_adventure/pixel_adventure.dart';
 
 class BackgroundTile extends ParallaxComponent<PixelAdventure> {
   BackgroundTile();
+  // BackgroundTile({required color, required Vector2 position});
+
+  // final String color;
+
+  // BackgroundTile({
+  //   this.color = "Gray",
+  //   position,
+  // }) : super(
+  //         position: position,
+  //       );
+
+  // get gameRef => null;
+
+  // final double scrollSpeed = 40;
 
   @override
   Future<FutureOr<void>> onLoad() async {
-    final background =
+    // set background to "behind"
+    priority = -10;
+    size = Vector2.all(64);
 
+    // parallax = await gameRef.loadParallax(
+    //     [ParallaxImageData('background/background_layer_1.png')],
+    //     baseVelocity: Vector2(0, 0),
+    //     repeat: ImageRepeat.repeat,
+    //     fill: LayerFill.none);
+
+    final background =
         //parallax background images goes here
         await Flame.images.load('background/background_layer_1.png');
     await Flame.images.load('background/background_layer_2.png');

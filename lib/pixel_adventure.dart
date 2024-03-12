@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/painting.dart';
@@ -24,7 +25,7 @@ class PixelAdventure extends FlameGame
   late JoystickComponent joystick;
 
   // checks for if on desktop dont need joystick if on desktop
-  bool showControls = true;
+  bool showControls = false;
 
   // health bar
   late TextComponent _playerHealth;
@@ -84,7 +85,7 @@ class PixelAdventure extends FlameGame
       text: 'Health: 100%',
 
       // health bar location
-      position: Vector2(size.x - 100, 10),
+      position: Vector2(size.x - 10, 10),
       textRenderer: TextPaint(
         style: const TextStyle(
           color: Colors.white,
@@ -164,6 +165,7 @@ class PixelAdventure extends FlameGame
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+
     // draw rectangle
     canvas.drawRect(
       Rect.fromLTWH(size.x - 100, 10, player.health.toDouble(), 10),

@@ -6,7 +6,6 @@ import 'package:pixel_adventure/components/saw.dart';
 import 'package:pixel_adventure/components/coin.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/spike.dart';
-// import 'package:pixel_adventure/components/configuration.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
@@ -27,6 +26,9 @@ class Level extends World with HasGameRef<PixelAdventure> {
     // add level to game
     add(level);
 
+    // scrolling background
+    // _scrollingBackground();
+
     // spawning objects
     _spawningObjects();
 
@@ -41,21 +43,16 @@ class Level extends World with HasGameRef<PixelAdventure> {
   //   // get access to background layers
   //   final backgroundLayer = level.tileMap.getLayer('Background');
 
-  //   const tileSize = 32;
-  //   final numtilesY = (game.size.x / tileSize).floor();
-
   //   if (backgroundLayer != null) {
   //     final backgroundColor =
   //         backgroundLayer.properties.getValue('BackgroundColor');
 
-  //     for (double y = 0; y < numtilesY; y++) {
-  //       final backgroundTile = BackgroundTile(
-  //         color: backgroundColor ?? 'background_layer_1',
-  //         position: Vector2(0, y * tileSize),
-  //       );
+  //     final backgroundTile = BackgroundTile(
+  //       color: backgroundColor ?? 'background_layer_1',
+  //       position: Vector2(0, 0),
+  //     );
 
-  //       add(backgroundTile);
-  //     }
+  //     add(backgroundTile);
   //   }
   // }
 
@@ -71,6 +68,8 @@ class Level extends World with HasGameRef<PixelAdventure> {
           //spawn player
           case 'Player':
             player.position = Vector2(spawnPoint.x, spawnPoint.y);
+            // spawn player right way
+            player.scale.x = 1;
             add(player);
             break;
           //spawn coins
