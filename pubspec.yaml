@@ -72,6 +72,7 @@ flutter:
     - assets/images/character/hit.png
     - assets/images/character/death.png
     - assets/images/HUD/Joystick.png
+    - assets/images/HUD/JumpButton.png
     - assets/images/HUD/Knob.png
     - assets/images/Common Pick-ups/
     - assets/images/Effects/Cloud_Poof (16 x 16).png

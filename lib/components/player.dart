@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_tiled/flame_tiled.dart';
+// import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
-import 'package:pixel_adventure/components/Saw.dart';
+import 'package:pixel_adventure/components/saw.dart';
 import 'package:pixel_adventure/components/coin.dart';
 import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/components/custom_hitbox.dart';

@@ -6,12 +6,17 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/painting.dart';
 import 'package:pixel_adventure/components/background_tile.dart';
+import 'package:pixel_adventure/components/jump_button.dart';
 import 'package:pixel_adventure/components/player.dart';
 import 'package:pixel_adventure/components/level.dart';
 
 // needs to have HasCollisionDetection so stuff we need to collide can have collisionsCallbacks
 class PixelAdventure extends FlameGame
-    with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection {
+    with
+        HasKeyboardHandlerComponents,
+        DragCallbacks,
+        HasCollisionDetection,
+        TapCallbacks {
   late final CameraComponent cam;
   Player player = Player(character: 'character');
 
@@ -19,7 +24,7 @@ class PixelAdventure extends FlameGame
   late JoystickComponent joystick;
 
   // checks for if on desktop dont need joystick if on desktop
-  bool showJoystick = false;
+  bool showControls = true;
 
   // health bar
   late TextComponent _playerHealth;
@@ -50,9 +55,11 @@ class PixelAdventure extends FlameGame
     // load cam first then world
     addAll([cam, world, BackgroundTile()]);
 
-    if (showJoystick) {
-      // joystick
+    if (showControls) {
+      // add joyStick
       addJoystick();
+      // add jumpButton
+      add(JumpButton());
     }
 
     // score
@@ -95,7 +102,7 @@ class PixelAdventure extends FlameGame
   // check where joystick is currently positioned
   @override
   void update(double dt) {
-    if (showJoystick) {
+    if (showControls) {
       updateJoystick();
     }
 
@@ -110,6 +117,9 @@ class PixelAdventure extends FlameGame
 
   void addJoystick() {
     joystick = JoystickComponent(
+      // sets images as priority (10 layers above 0)
+      priority: 10,
+
       //create knob
       knob: SpriteComponent(
         sprite: Sprite(
