@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
 import 'package:pixel_adventure/components/Saw.dart';
 import 'package:pixel_adventure/components/coin.dart';
@@ -59,6 +60,8 @@ class Player extends SpriteAnimationGroupComponent
 
   // got hit
   bool gotHit = false;
+
+  static const double bounceForce = -200; // Adjust as needed
 
   List<CollisionBlock> collisionBlocks = [];
 
@@ -147,7 +150,10 @@ class Player extends SpriteAnimationGroupComponent
     // if collide with saw
     if (other is Saw) _respawn();
 
+    // add if player is hit by saw knock back
+
     if (other is Saw) {
+      // set health
       health -= 10;
       if (health <= 0) {
         health = 0;
@@ -355,14 +361,20 @@ class Player extends SpriteAnimationGroupComponent
       position = startingPosition - Vector2.all(-20);
 
       // animation
-      // animation plays a bit off need to find a way to off set it to normal
       current = PlayerState.appearing;
 
       Future.delayed(appearingDuration, () {
         velocity = Vector2.zero();
         position = startingPosition;
+
         _updatePlayerState();
+
         Future.delayed(canMoveDuration, () => gotHit = false);
+
+        // if player health is zero and respawn set to 100
+        if (gameRef.player.health <= 0) {
+          gameRef.player.health = 100;
+        }
       });
     });
   }
